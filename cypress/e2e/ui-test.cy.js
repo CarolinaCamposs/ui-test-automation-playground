@@ -23,20 +23,29 @@ describe('UI Test', () => {
     cy.get('#greenButton').click()
     cy.get('#greenButton').click({ force: true })
 
-    
+
     cy.get('#blueButton')
       .should('exist')
       .and('have.length', 1)
 
   })
 
-  it.only('Deve navegar até "Load Delay" e clicar no botão após o carregamento', () => {
+  it('Deve navegar até "Load Delay" e clicar no botão após o carregamento', () => {
     cy.visit('/')
     cy.contains('a', 'Load Delay')
       .click()
     cy.contains('button', 'Button Appearing After Delay')
       .should('be.visible')
       .click()
+  })
+
+  it.only('Deve aguardar o carregamento do texto via AJAX', () => {
+    cy.visit('/ajax')
+
+    cy.contains('button', 'Button Triggering AJAX Request')
+      .click()
+    cy.contains('Data loaded with AJAX get request.', { timeout: 20000 })
+      .should('be.visible')
   })
 
 })
