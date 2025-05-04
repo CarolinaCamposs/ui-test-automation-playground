@@ -17,7 +17,7 @@ describe('UI Test', () => {
       .should('have.been.calledWith', 'Primary button pressed')
   })
 
-  it.only('Deve impedir clique duplo no botão verde', () => {
+  it('Deve impedir clique duplo no botão verde', () => {
     cy.visit('/hiddenlayers')
 
     cy.get('#greenButton').click()
@@ -28,6 +28,15 @@ describe('UI Test', () => {
       .should('exist')
       .and('have.length', 1)
 
+  })
+
+  it.only('Deve navegar até "Load Delay" e clicar no botão após o carregamento', () => {
+    cy.visit('/')
+    cy.contains('a', 'Load Delay')
+      .click()
+    cy.contains('button', 'Button Appearing After Delay')
+      .should('be.visible')
+      .click()
   })
 
 })
