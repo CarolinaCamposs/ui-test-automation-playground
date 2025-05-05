@@ -39,12 +39,21 @@ describe('UI Test', () => {
       .click()
   })
 
-  it.only('Deve aguardar o carregamento do texto via AJAX', () => {
+  it('Deve aguardar o carregamento do texto via AJAX', () => {
     cy.visit('/ajax')
 
     cy.contains('button', 'Button Triggering AJAX Request')
       .click()
     cy.contains('Data loaded with AJAX get request.', { timeout: 20000 })
+      .should('be.visible')
+  })
+
+  it.only('Deve aguardar o texto do rótulo aparecer após o processamento no lado do cliente', () => {
+    cy.visit('/clientdelay')
+
+    cy.contains('button', 'Button Triggering Client Side Logic')
+      .click()
+    cy.contains('Data calculated on the client side.', {timeout: 15000})
       .should('be.visible')
   })
 
